@@ -2,7 +2,7 @@ package HundirFlota;
 
 import java.util.ArrayList;
 
-class Barco {
+public class Barco {
 	/*FIRST VERSION OF CLASS Boat, we decied to make few changes.
 	private String[][] Barcos; //PORTAVIONES BUQUE LANCHA
 	//private int NumeroBarcos;	//2 3 5  5 4 1

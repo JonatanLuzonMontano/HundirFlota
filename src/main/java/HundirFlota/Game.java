@@ -3,15 +3,21 @@ package HundirFlota;
 import java.awt.List;
 import java.util.Scanner;
 
-public class Game {
+public class Game extends Thread{
 	private Player players[];
 	private boolean winner;
 	private int Turn;
+	private InterficieTeclado teclado = new Teclado();
 	public Game() {
 		players=new Player[2];
 		winner=false;
 		Turn=1;
 	}
+	
+	public void setTeclado(InterficieTeclado newteclado) {
+		this.teclado = newteclado;
+	}
+	
 	public Player getPlayer(int num) {
 		return players[num];
 	}
@@ -45,16 +51,17 @@ public class Game {
 		insertVessel(1);
 		insertMotorBoat(1);
 		for (int i = 0; i < 50; ++i) System.out.println();
+		
 		while(!winner) {
 			if(players[0].getTurno()==Turn) {
 				System.out.println("Shoot turn for "+players[0].getNombre());
 				System.out.println(players[0].mostrarTableroInfo());
 				System.out.println("Enter the row that you want to shoot");
 				Scanner fila= new Scanner(System.in);
-				int initialFila=fila.nextInt();
+				int initialFila=teclado.pedirCoordenadas();
 				System.out.println("Enter the column that you want to shoot");
 				Scanner col= new Scanner(System.in);
-				int initialCol=fila.nextInt();
+				int initialCol=teclado.pedirCoordenadas();
 				players[0].disparar(players[1].getTablero(), initialFila, initialCol);
 				if(players[1].getTablero().isEveryBoatSunk()) {
 					System.out.println(players[0].getNombre()+" has won the game.");
@@ -72,10 +79,10 @@ public class Game {
 				System.out.println(players[1].mostrarTableroInfo());
 				System.out.println("Enter the row that you want to shoot");
 				Scanner fila= new Scanner(System.in);
-				int initialFila=fila.nextInt();
+				int initialFila=teclado.pedirCoordenadas();
 				System.out.println("Enter the column that you want to shoot");
 				Scanner col= new Scanner(System.in);
-				int initialCol=fila.nextInt();
+				int initialCol=teclado.pedirCoordenadas();
 				players[1].disparar(players[0].getTablero(), initialFila, initialCol);
 				if(players[0].getTablero().isEveryBoatSunk()) {
 					System.out.println(players[1].getNombre()+" has won the game.");
@@ -105,18 +112,18 @@ public class Game {
 			while(!correctValue) {
 				System.out.println("Enter the row where you want to put the first coordinate of aircraft carrier");
 				Scanner fila= new Scanner(System.in);
-				int initialFila=fila.nextInt();
+				int initialFila=teclado.pedirCoordenadas();
 				System.out.println("Enter the column where you want to put the first coordinate of the aircraft carrier");
 				Scanner col= new Scanner(System.in);
-				int initialcol=fila.nextInt();
+				int initialcol=teclado.pedirCoordenadas();
 				if(players[player].getTablero().insertBoatfirstpos(initialFila, initialcol, 5)==true) {
 					while(!correctValueTwo) {
 						System.out.println("Enter the row where you want to put the last coordinate of aircraft carrier");
 						Scanner fila2= new Scanner(System.in);
-						int initialFila2=fila.nextInt();
+						int initialFila2=teclado.pedirCoordenadas();
 						System.out.println("Enter the column where you want to put the last coordinate of the aircraft carrier");
 						Scanner col2= new Scanner(System.in);
-						int initialcol2=fila.nextInt();
+						int initialcol2=teclado.pedirCoordenadas();
 						if(players[player].getTablero().insertBoatLastPosition(initialFila, initialcol, initialFila2, initialcol2, 5)==true) {
 							System.out.println("Boat correctly inserted");
 							correctValueTwo=true;
@@ -145,18 +152,18 @@ public class Game {
 			while(!correctValue) {
 				System.out.println("Enter the row where you want to put the first coordinate of vessel");
 				Scanner fila= new Scanner(System.in);
-				int initialFila=fila.nextInt();
+				int initialFila=teclado.pedirCoordenadas();
 				System.out.println("Enter the column where you want to put the first coordinate of vessel");
 				Scanner col= new Scanner(System.in);
-				int initialcol=fila.nextInt();
+				int initialcol=teclado.pedirCoordenadas();
 				if(players[player].getTablero().insertBoatfirstpos(initialFila, initialcol, 4)==true) {
 					while(!correctValueTwo) {
 						System.out.println("Enter the row where you want to put the last coordinate of veseel");
 						Scanner fila2= new Scanner(System.in);
-						int initialFila2=fila.nextInt();
+						int initialFila2=teclado.pedirCoordenadas();
 						System.out.println("Enter the column where you want to put the last coordinate of vessel");
 						Scanner col2= new Scanner(System.in);
-						int initialcol2=fila.nextInt();
+						int initialcol2=teclado.pedirCoordenadas();
 						if(players[player].getTablero().insertBoatLastPosition(initialFila, initialcol, initialFila2, initialcol2, 4)==true) {
 							System.out.println("Boat correctly inserted");
 							correctValueTwo=true;
@@ -183,10 +190,10 @@ public class Game {
 			while(!correctValue) {
 				System.out.println("Enter the row where you want to put the first coordinate of MotorBoat");
 				Scanner fila= new Scanner(System.in);
-				int initialFila=fila.nextInt();
+				int initialFila=teclado.pedirCoordenadas();
 				System.out.println("Enter the column where you want to put the first coordinate of MotorBoat");
 				Scanner col= new Scanner(System.in);
-				int initialcol=fila.nextInt();
+				int initialcol=teclado.pedirCoordenadas();
 				if(players[player].getTablero().insertBoatfirstpos(initialFila, initialcol, 1)==true) {
 					System.out.println("Boat correctly inserted");
 					correctValue=true;
